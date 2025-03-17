@@ -1,0 +1,36 @@
+# Python bytecode
+*.pyc
+*.pyo
+__pycache__/
+
+# Django specific
+*.log
+*.pot
+*.py[cod]
+db.sqlite3
+/media/
+/staticfiles/
+
+# Environment variables
+.env
+
+# DB
+task_manager/db.sqlite3
+
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# IDE specific
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+
+# macOS specific
+.DS_Store
