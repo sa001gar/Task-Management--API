@@ -1,0 +1,12 @@
+
+services:
+  web:
+    build: .
+    container_name: app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app  # Sync files between local and container
+      - ./db.sqlite3:/app/db.sqlite3  # Persist SQLite database
+    environment:
+      - DEBUG=True

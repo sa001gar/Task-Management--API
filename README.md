@@ -14,7 +14,7 @@ A simple Task Manager API built with Django and Django REST Framework (DRF) with
 1. Clone the repository:
    ```sh
    git clone https://github.com/sa001gar/Task-Management-API.git
-   cd Task-Management-API/task_manager
+   cd Task-Management-API/task_manager/
    ```
 2. Create a virtual environment and activate it:
    ```sh

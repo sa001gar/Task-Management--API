@@ -16,7 +16,7 @@ db.sqlite3
 
 # DB
 task_manager/db.sqlite3
-
+staticfiles/
 
 # Virtual environment
 venv/
