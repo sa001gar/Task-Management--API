@@ -238,5 +238,44 @@ gunicorn task_manager.wsgi:application --bind 0.0.0.0:8000
 Now Configure Nginx or any web server and you are good to go.
 
 ## Docker
+Go to `cd task_manager` then
+### 3️⃣ Build and Start Containers
+```sh
+docker-compose up --build
+```
+This will:
+- Build the necessary Docker images
+- Start the Django web server and database
 
+### 4️⃣ Run Migrations
+Once the containers are running, apply migrations:
+```sh
+docker-compose exec web python manage.py migrate
+```
+
+### 5️⃣ Collect Static Files
+```sh
+docker-compose exec web python manage.py collectstatic --noinput
+```
+
+### 6️⃣ Create a Superuser (Optional)
+```sh
+docker-compose exec web python manage.py createsuperuser
+```
+Follow the prompts to create an admin user.
+
+### 7️⃣ Access the Application
+- **Django App**: `http://localhost:8000`
+- **Django Admin**: `http://localhost:8000/admin`
+- **API **: `http://localhost:8000/api/v1/`
+
+### 8️⃣ Stopping and Restarting Containers
+To stop the containers:
+```sh
+docker-compose down
+```
+To restart:
+```sh
+docker-compose up -d
+```
 
