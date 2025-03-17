@@ -5,7 +5,6 @@ from rest_framework import status
 from .models import Task
 from rest_framework_simplejwt.tokens import RefreshToken
 
-# Create your tests here.
 class TaskAPITestCase(APITestCase):
 
     def setUp(self):
@@ -33,7 +32,7 @@ class TaskAPITestCase(APITestCase):
 
     def test_user_registration(self):
         """Test user registration API"""
-        data = {"username": "newuser","password": "newpass123"}
+        data = {"username": "newuser", "password": "newpass123"}
         response = self.client.post('/api/v1/user/register/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -50,7 +49,8 @@ class TaskAPITestCase(APITestCase):
         self.authenticate(self.user1_token)
         response = self.client.get('/api/v1/tasks/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)  # User1 should only see their own task
+        self.assertIn('results', response.data)  
+        self.assertEqual(len(response.data['results']), 1)  # User1 should only see their own task
 
     def test_update_task(self):
         """Test updating a task (only the owner can update)"""
@@ -85,16 +85,14 @@ class TaskAPITestCase(APITestCase):
         self.authenticate(self.user1_token)
         response = self.client.get('/api/v1/tasks/?completed=false')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        self.assertIn('results', response.data)  
+        self.assertEqual(len(response.data['results']), 1)
 
     def test_admin_can_see_all_tasks(self):
         """Test that an admin can see all tasks"""
         self.authenticate(self.admin_token)
         response = self.client.get('/api/v1/admin/tasks/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertGreaterEqual(len(response.data), 1)  # Admin should see all tasks
+        self.assertIn('results', response.data) 
+        self.assertGreaterEqual(len(response.data['results']), 1)  # Admin should see all tasks
 
-
-if __name__ == '__main__':
-    import unittest
-    unittest.main()
